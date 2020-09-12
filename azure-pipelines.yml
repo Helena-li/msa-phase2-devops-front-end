@@ -7,7 +7,7 @@ trigger:
 - master
 
 variables:
-  rootDir: 'my-app'
+  rootDir: 'my-app-phase2-frontend'
   buildDir: '$(rootDir)/build'
 
 pool:
