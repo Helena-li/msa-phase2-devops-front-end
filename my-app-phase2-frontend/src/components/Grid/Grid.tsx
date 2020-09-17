@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { CircularProgress, Grid } from "@material-ui/core";
+import {
+  createMuiTheme,
+  withStyles,
+  makeStyles,
+  ThemeProvider,
+} from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import { green, orange } from "@material-ui/core/colors";
 import { getArray } from "../../api/Api";
 import MediaCard from "../MediaCardComponent/MediaCard";
 import { IRestaurantState } from "../../common/Interfaces";
@@ -9,9 +17,24 @@ interface IGridProps {
   Type: string | null;
 }
 
+const theme = createMuiTheme({
+  palette: {
+    primary: orange,
+  },
+});
+
+const useStyles = makeStyles((theme) => ({
+  margin: {
+    margin: theme.spacing(1),
+  },
+}));
+
 const RestaurantGrid = (props: IGridProps) => {
+  const classes = useStyles();
+
   const [restaurantArray, setRestaurantArray] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     if (restaurantArray.length > 0 && isLoading) setIsLoading(false);
   }, [isLoading, restaurantArray]);
@@ -55,6 +78,17 @@ const RestaurantGrid = (props: IGridProps) => {
     <CircularProgress />
   ) : (
     <div>
+      <div>
+        <ThemeProvider theme={theme}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.margin}
+          >
+            Add New Restaurant
+          </Button>
+        </ThemeProvider>
+      </div>
       <Grid container spacing={3} className="MediaGridContainer">
         {Cards}
       </Grid>

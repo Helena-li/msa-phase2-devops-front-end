@@ -12,6 +12,7 @@ import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Rating from "@material-ui/lab/Rating";
 
 interface IMediaCardProps {
   id: number | null;
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 function MediaCard(props: IMediaCardProps) {
   const classes = useStyles();
-
+  console.log(props.pictureLink !== null && props.pictureLink.length > 0);
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -67,18 +68,15 @@ function MediaCard(props: IMediaCardProps) {
       <CardMedia
         className={classes.media}
         image={
-          props.pictureLink && props.pictureLink.length > 0
+          props.pictureLink !== null && props.pictureLink.length > 0
             ? props.pictureLink
-            : undefined
+            : "https://raw.githubusercontent.com/Helena-li/msa-phase2-devops-front-end/master/my-app-phase2-frontend/src/images/1.jpg"
         }
         title="Restaurant picture"
       />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
-        </Typography>
+        <label>rate</label>
+        <Rating name="simple-controlled" value={props.rate} />
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
